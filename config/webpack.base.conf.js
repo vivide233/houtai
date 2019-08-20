@@ -1,19 +1,19 @@
-const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const pathObj = require('./path');
 
 module.exports = {
-  mode: 'development',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    open: true,
-    compress: true,
-    port: 9000
-  },
-  entry: './src/index.js',
+  entry: pathObj.app,
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: pathObj.dist
+  },
+  resolve: {
+    alias: {
+      'assets': pathObj.assets,
+      '@': pathObj.common,
+    }
   },
   module: {
     rules: [
@@ -38,7 +38,7 @@ module.exports = {
         ]
       },
       {
-          test: /\.(png|svg|jpg|gif)$/,
+          test: /\.(png|svg|jpg|gif|jpeg)$/,
           use:['file-loader']
       },
       {
@@ -50,8 +50,9 @@ module.exports = {
   plugins: [
     // 请确保引入这个插件来施展魔法
     new VueLoaderPlugin(),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-        template: './index.html'
+        template: pathObj.html
     })
   ]
 };

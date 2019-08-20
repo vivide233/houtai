@@ -1,5 +1,5 @@
 import Page1 from './page1/index.vue'
-
-export default {
-    Page1
+console.log('Page1-----------',Page1)
+export {
+    Page1,
 }

@@ -1,6 +1,6 @@
 import Home from './pages/home.vue'
-import { Page1 } from './pages/nav1'
-
+import { Page1 } from './pages/nav1/index.js'
+console.log('page1', Page1)
 export default [
     {
         path: '/', component: Home
@@ -8,9 +8,10 @@ export default [
     {
         path: '/',
         component: Home,
-        name: 'nav1',
+        name: 'page1',
+        iconCls: 'el-icon-menu',
         children: [
-            { path: '/page1', component: Page1, name: '系统日志' },
+            { path: 'page1', component: Page1, name: '系统日志' },
         ]
     },
 ]

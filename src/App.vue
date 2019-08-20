@@ -4,7 +4,11 @@
   </div>
 </template>
 <script>
-
+  export default {
+    mounted:function(){
+      this.$router.push('/page1')
+    }
+  }
 </script>
 <style>
 body {

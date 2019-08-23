@@ -13,7 +13,8 @@ module.exports = {
     alias: {
       'assets': pathObj.assets,
       '@': pathObj.common,
-    }
+    },
+    extensions: [".js", ".json", ".vue"]
   },
   module: {
     rules: [
@@ -38,13 +39,33 @@ module.exports = {
         ]
       },
       {
-          test: /\.(png|svg|jpg|gif|jpeg)$/,
-          use:['file-loader']
+        test: /\.less$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader'
+        ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use:['file-loader']
-    }
+          test: /\.(png|svg|jpg|gif|jpeg)$/,
+          use:[{
+            loader: 'url-loader',
+            options:{
+              limit: 1024*1024,
+              outputPath: '/images'
+            }
+          }],
+      },
+      {
+        test:/\.(woff|woff2|eot|ttf|otf)$/,
+        use:[{
+          loader: 'url-loader',
+          options:{
+            limit: 1024*1024,
+            outputPath: '/fonts'
+          }
+        }],
+    },
     ]
   },
   plugins: [

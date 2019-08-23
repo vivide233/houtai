@@ -1,34 +1,48 @@
 <template>
   <div>
-    <i class="el-icon-edit"></i>
-    <i class="el-icon-share"></i>
-    <i class="el-icon-delete"></i>
-    <el-button type="primary" icon="el-icon-search">搜索</el-button>
-    <h2 class="mystyle">hahha</h2>
-    <img :src="img" alt="">
+    <uplaoder />
   </div>
 </template>
+
 <script>
-import { Button } from "element-ui"
-import img from 'assets/img/amd.jpeg'
+import {Upload} from 'element-ui';
+import { Uplaoder } from '@/components'
 export default {
-  data: function() {
+  name: "integral-config",
+  data() {
     return {
-      name: "vivi",
-      img,
+      url: "/osp/fileUpload/upload"
     };
   },
   components: {
-    [Button.name]: Button,
+    [Upload.name]: Upload,
+    uplaoder: Uplaoder
+  },
+  methods: {
+    async beforeUpload() {
+      const result = await this.$prompt("请输入上传路径", "提示", {
+        confirmButtonText: "上传",
+        cancelButtonText: "取消",
+        inputPattern: /^\/(\w+\/?)+$/,
+        inputErrorMessage: "路径格式不正确",
+        inputValue: this.url
+      })
+        .then(({ value }) => {
+          this.url = value;
+          return true;
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消上传"
+          });
+          return false;
+        });
+      return result;
+    }
   }
-}
+};
 </script>
-<style>
-  .mystyle{
-    background: red;
-    transform: scale(2)
-  }
+
+<style scoped>
 </style>
-
-
-

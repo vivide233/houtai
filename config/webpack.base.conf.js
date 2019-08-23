@@ -2,7 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const pathObj = require('./path');
-
+console.log('==================>', pathObj.common + '/styles')
 module.exports = {
   entry: pathObj.app,
   output: {
@@ -13,6 +13,8 @@ module.exports = {
     alias: {
       'assets': pathObj.assets,
       '@': pathObj.common,
+      '@styles': pathObj.common + '/styles',
+      '@components': pathObj.common + '/components'
     },
     extensions: [".js", ".json", ".vue"]
   },
@@ -41,7 +43,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'vue-style-loader',
+          'style-loader',
           'css-loader',
           'less-loader'
         ]
@@ -51,8 +53,8 @@ module.exports = {
           use:[{
             loader: 'url-loader',
             options:{
-              limit: 1024*1024,
-              outputPath: '/images'
+              // limit: 10000,
+              // outputPath: '/images'
             }
           }],
       },
@@ -61,8 +63,8 @@ module.exports = {
         use:[{
           loader: 'url-loader',
           options:{
-            limit: 1024*1024,
-            outputPath: '/fonts'
+            // limit: 10000,
+            // outputPath: '/fonts'
           }
         }],
     },

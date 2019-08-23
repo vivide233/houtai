@@ -1,0 +1,165 @@
+.ellipsis() {
+  overflow: hidden;/*内容超出后隐藏*/
+  text-overflow: ellipsis;/* 超出内容显示为省略号*/
+  white-space: nowrap;/*文本不进行换行*/
+  -webkit-line-clamp: 1;
+}
+
+.clearfix() {
+  *zoom:1;
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.ab_100 () {
+  position: absolute;
+  width: 100%; height: 100%;
+  left: 0; top: 0;
+}
+
+.btn_style () {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
+  .icon {
+    margin-right: 6px;
+    font-size: 16px;
+  }
+}
+
+/** 树状结构 */
+.g_tree() {
+  @item_hei: 26px;
+  @item_padding_left: 18px;
+  @item_margin_betwween: 8px;
+  @item_line_color: #cecece;
+
+  :global(.ivu-tree-arrow) {
+    position: relative;
+    width: @item_padding_left;
+    background: #fff;
+    z-index: 2;
+    i {
+      line-height: @item_hei;
+      font-size: 16px;
+    }
+    // i:before {
+    //   content: '\F341';
+    // }
+  }
+  :global(.ivu-tree-title) {
+    position: relative;
+    padding: 0;
+    font-size: 14px;
+    background: #fff;
+    z-index: 2;
+  }
+  .cms-tree-hover {
+    & > li > :global(.ivu-tree-arrow),
+    & > li > :global(.ivu-tree-title) {
+      color: #2d8cf0;
+    }
+    & > li > :global(.ivu-tree-children):before,
+    & > li > :global(.ivu-tree-children):after {
+      background: #2d8cf0;
+    }
+  }
+  :global(.ivu-tree-children) {
+    position: relative;
+    line-height: @item_hei;
+
+    // :global(.ivu-tree-children) {
+      &:after {
+        content: '';
+        height: 1px;
+        width: 24px;
+        position: absolute;
+        left: @item_padding_left / 2;
+        top: @item_hei / 2;
+        background: @item_line_color;
+      }
+      &:before {
+        content: '';
+        display: block;
+        width: 1px;
+        position: absolute;
+        top: -@item_margin_betwween;
+        bottom: 0;
+        left: @item_padding_left / 2;
+        background: @item_line_color;
+      }
+      &:last-child:before {
+        height: @item_hei / 2 + @item_margin_betwween;
+        bottom: unset;
+      }
+    // }
+  }
+}
+
+.page_left() {
+  position: absolute;
+  width: @THEME_PAGE_LEFT_WIDTH;
+  height: 100%;
+  left: 0; top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 @THEME_PAD_VER 0 0;
+  background: #fff;
+  border-right: 1px solid @THEME_BORDER_COLOR_BASE;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.page_content() {
+  position: absolute;
+  height: 100%;
+  left: @THEME_PAGE_LEFT_WIDTH;
+  top: 0; right: 0;
+  padding-left: @THEME_PAD_HOR;
+  background: #fff;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.page_title() {
+  height: 80px;
+  line-height: 80px;
+  font-size: 16px;
+  border-bottom: 1px solid #F1F1F1;
+  :global(.ivu-icon) {
+    margin-right: 6px;
+    line-height: 36px;
+  }
+}
+
+.table_line_color(@color) {
+  :global(.ivu-table-cell) {
+    color: @color;
+  }
+}
+
+// 待发布内容
+.style_col_wait() {
+  .table_line_color(blue);
+}
+// 已下架（失效）内容
+.style_col_useless() {
+  .table_line_color(#ccc);
+}
+
+// 审核成功内容
+.style_col_success() {
+  .table_line_color(#19be6b);
+}
+// 审核失败内容
+.style_col_fail() {
+  .table_line_color(#ed4014);
+}

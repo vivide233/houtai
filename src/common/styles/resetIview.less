@@ -1,0 +1,62 @@
+@import '~iview/src/styles/index.less';
+
+// Here are the variables to cover, such as:
+// @primary-color: #8c0776;
+
+@primary-color: @THEME_COLOR_PRIMARY;
+
+.ivu {
+  &-table-default {
+    &:after {
+      width: 0;
+    }
+    th, td {
+      // height: 54px;
+      height: auto;
+      padding: @THEME_PAD_VER * 0.6 0;
+    }
+    th {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    td {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+  &-table-small {
+    &:after {
+      width: 0;
+    }
+    th, td {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      height: auto;
+      :global(.ivu-table-cell) {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+  &-table-wrapper {
+    border-color: transparent;
+  }
+  &-tabs-tab{
+    font-weight: 500;
+  }
+  &-form-item-label {
+    &:after {
+      content: '：';
+    }
+  }
+  &-modal-body {
+    .ivu-modal-confirm-body {
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  }
+}
+textarea.ivu-input {
+  font-size: 12px;
+}
+

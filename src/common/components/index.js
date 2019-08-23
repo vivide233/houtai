@@ -1,3 +1,3 @@
-import Uplaoder from './uploader'
+import BaseUploader from './uploader'
 
-export { Uplaoder }
+export { BaseUploader }

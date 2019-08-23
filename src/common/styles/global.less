@@ -1,0 +1,165 @@
+/** 页面顶部标题栏样式 */
+.g-top-title-area {
+  margin-bottom: @THEME_PAD_VER;
+  padding: 0 0 @THEME_PAD_VER;
+  border-bottom: 1px solid @THEME_BORDER_COLOR_BASE;
+  .title-area {
+    .clearfix();
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    .title-icon {
+      float: left;
+      display: block;
+      line-height: inherit;
+      margin-right: 6px;
+    }
+    .title-txt {
+      float: left;
+    }
+  }
+}
+
+/* 按钮区域格式 */
+.g-btn-area {
+  .clearfix();
+  margin-bottom: @THEME_PAD_VER;
+
+  :global(.ivu-btn),
+  :global(.ivu-btn-group) {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  .g-btn-right {
+    float: right;
+    &:first-child {
+      margin-left: 10px;
+    }
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+.g-btn-area-right {
+  .clearfix();
+  margin-bottom: @THEME_PAD_VER;
+  :global(.ivu-btn),
+  :global(.ivu-btn-group) {
+    display: block;
+    float: right;
+    margin-right: 10px;
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+}
+.g-btn-area-center {
+  margin-bottom: @THEME_PAD_VER;
+  text-align: center;
+  :global(.ivu-btn),
+  :global(.ivu-btn-group) {
+    display: inline-block;
+    margin-left: 10px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+/* 表格按钮格式 */
+.btn-area {
+  .clearfix();
+
+  .btn-sm {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+    color: #2d8cf0;
+    cursor: pointer;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/** 查看表单统一样式 */
+.g-form-view {
+  .ivu-form-item {
+    margin-bottom: 10px;
+  }
+  .ivu-form-item-content {
+    font-size: 16px;
+    color: #888;
+  }
+}
+
+// 富文本编辑器样式覆盖
+.my-edui-editor {
+  :global(.edui-default) {
+    :global(.edui-editor) {
+      height: 100%;
+      border: 1px solid @THEME_BORDER_COLOR_BASE;
+      border-radius: 0;
+      // box-shadow: 0px 4px 14px 3px rgba(238,238,238,0.91);
+      box-shadow: none;
+    }
+    :global(.edui-editor-toolbarbox) {
+      line-height: 1.5;
+    }
+    :global(.edui-editor-toolbarboxouter) {
+      background: #fff;
+      box-shadow: none;
+    }
+  }
+}
+
+// 下拉菜单内嵌tooltip
+.g-dropdown-item-enhance {
+  padding: 0;
+  :global(.ivu-tooltip) {
+    display: block;
+    :global(.ivu-tooltip-rel) {
+      display: block;
+      padding: 7px 16px;
+    }
+  }
+}
+
+// 弹窗中的新闻标题
+.g-modal-news-title-line {
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic;
+}
+
+// 文章列表（表格）
+.g-article-list-table {
+  // 发布状态区分样式
+  :global(.col-publishState-0),
+  :global(.col-publishState-6),
+  :global(.col-publishState-8) {
+    .style_col_wait();
+  }
+  :global(.col-publishState-7) {
+    .style_col_useless();
+  }
+  :global(.col-approveState-Y):global(.col-publishState-0) {
+    .style_col_success();
+  }
+  :global(.col-approveState-N):global(.col-publishState-0) {
+    .style_col_fail();
+  }
+}
+
+:global(.cke_screen_reader_only) {
+  height: 0px!important;
+}

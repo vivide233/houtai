@@ -2,7 +2,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const pathObj = require('./path');
-console.log('==================>', pathObj.common + '/styles')
 module.exports = {
   entry: pathObj.app,
   output: {

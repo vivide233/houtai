@@ -1,9 +1,24 @@
 <template>
   <el-container class="home-container">
-    <el-aside class="home-aside" width="230px">
-      <div class="home-logo">
+    <el-header class="home-header">
+        <div class="home-header-name">仁和在线销售配置后台</div>
+        <el-dropdown>
+          <div class="home-dropdown">
+            <div>admin</div>
+            <div class="home-header-icon">
+              <i class="el-icon-user" />
+            </div>
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item class="home-dropdown-exit">退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-header>
+    <el-container>
+      <el-aside class="home-aside" width="230px">
+      <!-- <div class="home-logo">
         <img :src="logo" />
-      </div>
+      </div> -->
       <el-menu default-active="/page1" class="home-menu-vertical" :router="true">
         <el-submenu index="/">
           <template slot="title">
@@ -15,20 +30,6 @@
         </el-submenu>
       </el-menu>
     </el-aside>
-    <el-container>
-      <el-header class="home-header">
-        <el-dropdown>
-          <div class="home-dropdown">
-            <div class="home-header-icon">
-            <i class="el-icon-user" />
-          </div>
-          <div class="home-header-name">用户1</div>
-          </div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item class="home-dropdown-exit">退出</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -74,7 +75,10 @@ export default {
 .home-dropdown{
   display: flex;
   cursor: pointer;
-  color: #409EFF;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 .home-dropdown-exit{
   width: 60px;
@@ -86,44 +90,41 @@ export default {
 }
 .home-aside {
   box-sizing: border-box;
-  padding-top: 230px;
-  position: relative;
-}
-.home-logo {
-  box-sizing: border-box;
-  position: absolute;
-  height: 230px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-right: solid 1px #e6e6e6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    height: 50%;
-    width: 50%;
-    object-fit: cover;
-  }
 }
 .home-header {
   display: flex;
-  justify-content: flex-end;
-  border-bottom: 5px solid #72bff3;
+  justify-content:space-between;
+  background: #20a0ff;
+  padding-right: 35px;
+  padding-left: 0;
+  &-name{
+    box-sizing: border-box;
+    border-right: solid 1px #eef1f6;
+    font-size: 18px;
+    color: #fff;
+    width: 230px;
+    line-height: 60px;
+    text-align: center;
+  }
 }
 .home-menu-vertical {
+  background: #eef1f6;
   height: 100%;
+  border-right: 0; 
 }
 .home-header-icon {
   font-size: 30px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   text-align: center;
-  line-height: 50px;
-  background-color: white;
+  line-height: 40px;
+  background: #20a0ff;
+  border-radius: 100%;
+  border: 2px solid#fff;
+  margin-left: 10px
 }
-.home-header-name {
-  line-height: 50px;
+.el-submenu .el-menu{
+  background: #e4e8f1;
 }
 </style>
 

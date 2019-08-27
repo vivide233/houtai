@@ -13,7 +13,7 @@
         :onError="handleUploadError"
       >
         <div style="padding: 20px 0;color:">
-            <i class="el-icon-upload"></i>
+          <i class="el-icon-upload"></i>
           <p>点击选择文件(夹) 或 拖拽文件(夹)至此 进行上传</p>
         </div>
       </BaseUploader>
@@ -26,7 +26,7 @@
 import { cloneDeep } from 'lodash'
 // import { cookies, localStorage } from '@common/utils'
 import { BaseUploader } from '@components'
-
+import { MessageBox, Message } from 'element-ui';
 const maxFileSize = 1000 // 文件大小限制(m)
 const maxFilesSizeReal = maxFileSize * 1024 * 1024 // 实际文件大小限制(b)
 
@@ -41,7 +41,7 @@ export default {
   },
   data () {
     return {
-      currentPath: '',
+      currentPath: '/osp/fileUpload/upload',
       pathInit: false,
       tempPath: '',
 
@@ -51,7 +51,7 @@ export default {
       modalFavor: false,
       favorDesc: '',
 
-      action: '/ftcms-app/v1/fileUpload/upload',
+      action: '/ospmgr/fileUpload/upload',
       headers: {
         // 'Authorization': cookies.getAuthorization(),
       },
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     uploaderData () {
-      return { path: this.currentPath }
+      return { url: this.currentPath }
     },
   },
   watch: {
@@ -114,21 +114,19 @@ export default {
             reject()
             return
           }
-          this.$Modal.confirm({
-            title: '操作确认',
-            content: `
-<br/>  上传路径：<strong>${this.currentPath}</strong>
-<br/>  文件数量：<strong>${fileList.length}</strong>
-<br/>  文件体积：<strong>${fullSize}b</strong>
-<br/>确认进行此次操作吗？`,
-            onOk: () => {
+          MessageBox.confirm(`
+            上传路径:${this.currentPath}
+            文件数量:${fileList.length}
+            文件体积:${fullSize}
+            确认进行此次操作吗？`,
+            '操作确认',
+            {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+            }).then(()=>{
               resolve()
               this.uploading = true
-            },
-            onCancel: () => {
-              reject()
-            },
-          })
+            })
         }
       })
     },
@@ -145,10 +143,10 @@ export default {
     },
     handleUploadError (res) {
       this.uploading = false
-      this.$Notice.success({
-        title: '上传失败',
-        desc: res.body,
-        duration: 0,
+      Message({
+        message: '上传失败' + res.body,
+        type: 'error',
+        duration: 3000,
       })
     },
     // 增加收藏夹
@@ -162,28 +160,27 @@ export default {
         this.$Message.warning('收藏描述不能为空')
       } else {
         // 不查重，直接添加
-        this.$Modal.confirm({
-          title: '操作确认',
-          content: `
-添加path收藏：
-<br/> <strong>${favorDesc}</strong>
-<br/> <strong>${currentPath}</strong>
-`,
-          onOk: () => {
-            const strList = localStorage.get('pathFavor')
-            const realList = JSON.parse(strList) || []
-            console.log(realList)
-            realList.push({
-              rootPath: this.rootPath,
-              path: currentPath,
-              desc: favorDesc,
-            })
-            localStorage.set('pathFavor', JSON.stringify(realList))
-            this.hideModalFavor()
-            this.pathInit = false
-            this.$emit('on-addFavor')
-          },
-        })
+        MessageBox.confirm(
+          `添加path收藏：<br/> <strong>${favorDesc}</strong><br/> <strong>${currentPath}</strong>`,
+          '操作确认',
+          {
+            confirmButtonText: '确定123',
+            cancelButtonText: '取消',
+          }).then(() => {
+              console.log('action')
+              const strList = localStorage.get('pathFavor')
+              const realList = JSON.parse(strList) || []
+              console.log(realList)
+              realList.push({
+                rootPath: this.rootPath,
+                path: currentPath,
+                desc: favorDesc,
+              })
+              localStorage.set('pathFavor', JSON.stringify(realList))
+              this.hideModalFavor()
+              this.pathInit = false
+              this.$emit('on-addFavor')
+          },)
       }
     },
     // 关闭收藏弹窗
@@ -198,7 +195,7 @@ export default {
 
 <style lang="less">
 @import "~@styles/theme.less";
-@import '~@styles/mixins.less';
+@import "~@styles/mixins.less";
 
 .full-uploader {
   position: relative;
@@ -209,7 +206,7 @@ export default {
     min-height: 56px;
     padding: @THEME_PAD_VER @THEME_PAD_HOR;
   }
-  .el-icon-upload{
+  .el-icon-upload {
     font-size: 67px;
     color: #c0c4cc;
     margin: 40px 0 16px;
